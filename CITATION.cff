@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+message: "If you use Universal Skill Creator in your research, production systems, or publications, please cite it as below."
+authors:
+  - family-names: "Momin"
+    given-names: "GTM Engineering"
+title: "Universal Skill Creator: The Open-Source Meta-Skill Factory for AI Agents"
+version: 1.0.0
+date-released: 2026-11-04
+url: "https://github.com/themominpro/universal-skill-creator"
+keywords:
+  - "ai agents"
+  - "skills"
+  - "agentskills"
+  - "prompt engineering"
+  - "claude"
+  - "antigravity"
+  - "cursor"
+  - "ast security"
+license: Apache-2.0

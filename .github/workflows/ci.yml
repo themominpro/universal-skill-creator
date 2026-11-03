@@ -1,0 +1,36 @@
+name: CI Test Suite
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        python-version: ['3.9', '3.10', '3.11', '3.12']
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Run Layout Conformance Audit
+      run: python scripts/audit_skill.py .
+
+    - name: Run AST Security Scan
+      run: python scripts/security_scan.py .
+
+    - name: Run Trigger Precision & Recall Suite
+      run: python scripts/test_skill_trigger.py .
+
+    - name: Run Empirical Task Evals
+      run: python scripts/run_evals.py .
+

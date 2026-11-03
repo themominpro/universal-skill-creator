@@ -1,0 +1,5 @@
+name: universal-skill-exporter
+title: Universal Skill Exporter
+description: Audits, security-scans, validates metadata, and packages AI Agent Skills into clean, client-ready distribution archives (.zip and .tar.gz), with audit and security gates and sha256 hashes.
+category: skill-tools
+include_in_prompt: false

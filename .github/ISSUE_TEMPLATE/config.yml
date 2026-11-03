@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 💬 GitHub Discussions
+    url: https://github.com/themominpro/universal-skill-creator/discussions
+    about: Ask questions, share skills you've created, and discuss best practices.
+  - name: 🛡️ Security Vulnerability Reporting
+    url: https://github.com/themominpro/universal-skill-creator/security/advisories/new
+    about: Privately report security vulnerabilities.

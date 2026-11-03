@@ -1,0 +1,41 @@
+name: 🐛 Bug Report
+description: File a bug report or regression finding
+title: "[BUG]: "
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report an issue! Before opening, please confirm you are running Python 3.9+ and have run `python scripts/audit_skill.py .`.
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: Describe the bug clearly.
+      placeholder: Tell us what you see vs. what you expected.
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      description: OS, Python version, and AI harness (Antigravity, Claude Code, Cursor, Codex).
+      placeholder: Windows 11 / Python 3.11 / Claude Code
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to Reproduce
+      description: Exact CLI command or skill prompt executed.
+      placeholder: |
+        1. Run `python scripts/audit_skill.py path/to/my-skill`
+        2. Output shows...
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Terminal Output / Stack Trace
+      description: Copy and paste relevant CLI JSON output or error traceback.
+      render: shell

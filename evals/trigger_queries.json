@@ -1,0 +1,33 @@
+{
+  "skill_name": "universal-skill-creator",
+  "should_trigger": [
+    "Create an enterprise AI agent skill for postgres migration review",
+    "Build a commercial skill from these developer transcripts and notes",
+    "Can you write a skill adhering to the agentskills.io standard?",
+    "I need a skill creator to turn our customer support SOP into an AI skill",
+    "Make a skill from notes for our internal engineering onboarding",
+    "Audit this existing skill and check for structural smells and security leaks",
+    "Turn this into a skill with companion Python validation scripts",
+    "Build commercial skill for client delivery with pitch dossier",
+    "Audit an existing skill for 26 smells",
+    "Audit this skill and fix its structural smells",
+    "Build a skill from my SOP notes",
+    "Turn our support SOP into a commercial skill"
+  ],
+  "should_not_trigger": [
+    "Please help me with one-off shell scripting to move files between folders",
+    "General codebase refactoring without skills or prompt definitions",
+    "Write a quick Python script to check if this URL is reachable",
+    "Fix my CSS flexbox alignment on this modal dialog",
+    "Explain how TCP three-way handshake works",
+    "Write a poem about neural networks",
+    "Optimize this PostgreSQL query to use an index on user_id",
+    "Help me debug a React useEffect infinite re-render",
+    "Audit my Python code for bugs",
+    "Write a Python script to audit a CSV file",
+    "Help me debug a React component, no skill involved",
+    "Create a landing page, not a skill",
+    "Build a website, not a skill",
+    "I need a landing page, no skill involved"
+  ]
+}

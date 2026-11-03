@@ -1,0 +1,5 @@
+name: universal_skill_creator
+title: Universal Skill Creator
+description: Synthesizes, audits, benchmarks, and refines AI Agent Skills adhering to the agentskills.io open standard, when the user wants to create, audit, or package a skill.
+category: Work and knowledge
+include_in_prompt: false

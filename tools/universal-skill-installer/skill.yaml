@@ -1,0 +1,5 @@
+name: universal-skill-installer
+title: Universal Skill Installer
+description: Security-verifies, unpacks, and installs AI Agent Skills from .zip archives, .tar.gz packages, or folders into Antigravity, Claude Code, Cursor, or Codex, with dependency and secret configuration.
+category: skill-tools
+include_in_prompt: false

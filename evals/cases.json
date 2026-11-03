@@ -1,0 +1,107 @@
+[
+  {
+    "id": "case-01-audit-clean",
+    "name": "Audit Structural & AST Integrity",
+    "description": "Verifies that the skill passes structural 26-smell audit with 0 violations",
+    "command": "python scripts/audit_skill.py .",
+    "expected_exit_code": 0,
+    "required_output_substrings": [
+      "\"grade\": \"A+\"",
+      "\"status\": \"PASS\""
+    ]
+  },
+  {
+    "id": "case-02-security-scan",
+    "name": "Security & Secret Leak Scan",
+    "description": "Verifies that scripts contain no dangerous execution or hardcoded tokens",
+    "command": "python scripts/security_scan.py .",
+    "expected_exit_code": 0,
+    "required_output_substrings": [
+      "\"critical_count\": 0",
+      "\"status\": \"PASS\""
+    ]
+  },
+  {
+    "id": "case-03-trigger",
+    "name": "Trigger Precision and Recall",
+    "description": "Verifies trigger test passes on the expanded hard set",
+    "command": "python scripts/test_skill_trigger.py .",
+    "expected_exit_code": 0,
+    "required_output_substrings": [
+      "\"recall_pct\": 100.0",
+      "\"precision_pct\": 100.0"
+    ]
+  },
+  {
+    "id": "case-04-example-audit",
+    "name": "Example Skill Audit",
+    "description": "Verifies the built example skill passes the 26-smell audit",
+    "command": "python scripts/audit_skill.py examples/built-example/prospect-homepage-audit",
+    "expected_exit_code": 0,
+    "required_output_substrings": [
+      "\"grade\": \"A+\"",
+      "\"status\": \"PASS\""
+    ]
+  },
+  {
+    "id": "case-05-example-validate-good",
+    "name": "Example Validate Good Record",
+    "description": "Verifies a correct Pitch record passes validate.py",
+    "command": "python examples/built-example/prospect-homepage-audit/scripts/validate.py examples/built-example/prospect-homepage-audit/evals/good-pitch.json",
+    "expected_exit_code": 0,
+    "required_output_substrings": [
+      "\"status\": \"PASS\""
+    ]
+  },
+  {
+    "id": "case-06-example-validate-bad",
+    "name": "Example Validate Bad Record",
+    "description": "Verifies a Skip record with a pitch angle fails validate.py",
+    "command": "python examples/built-example/prospect-homepage-audit/scripts/validate.py examples/built-example/prospect-homepage-audit/evals/bad-skip-with-pitch.json",
+    "expected_exit_code": 1,
+    "required_output_substrings": [
+      "\"status\": \"FAIL\""
+    ]
+  },
+  {
+    "id": "case-07-trigger-negation",
+    "name": "Trigger Negation Guard",
+    "description": "Verifies landing page requests explicitly saying not a skill do not trigger",
+    "command": "python scripts/test_skill_trigger.py . --queries evals/trigger-negation.json",
+    "expected_exit_code": 0,
+    "required_output_substrings": [
+      "\"recall_pct\": 100.0",
+      "\"precision_pct\": 100.0"
+    ]
+  },
+  {
+    "id": "case-08-bundle-gate-pass",
+    "name": "Bundle Gate Pass",
+    "description": "Verifies bundle_package succeeds for a passing example skill",
+    "command": "python scripts/bundle_package.py examples/built-example/prospect-homepage-audit /tmp/bundle-gate-test-v10 --format zip",
+    "expected_exit_code": 0,
+    "required_output_substrings": [
+      "\"status\": \"SUCCESS\""
+    ]
+  },
+  {
+    "id": "case-09-bundle-gate-fail",
+    "name": "Bundle Gate Fail",
+    "description": "Verifies bundle_package refuses a failing gate-test skill",
+    "command": "python scripts/bundle_package.py examples/gate-test/bad-skill /tmp/bundle-gate-test-v10-fail --format zip",
+    "expected_exit_code": 1,
+    "required_output_substrings": [
+      "\"status\": \"FAIL\""
+    ]
+  },
+  {
+    "id": "case-10-discover-env",
+    "name": "Discover Environment",
+    "description": "Verifies discover_env runs and reports MCP detection",
+    "command": "python scripts/discover_env.py",
+    "expected_exit_code": 0,
+    "required_output_substrings": [
+      "\"mcp\""
+    ]
+  }
+]

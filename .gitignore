@@ -1,0 +1,28 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environment and sensitive credentials
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Test run and benchmark artifacts
+results.json
+*results*.json
+/tmp/
+
+# OS and IDE files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Distribution archives
+dist/
+*.zip
+*.tar.gz
+

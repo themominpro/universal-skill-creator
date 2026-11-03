@@ -1,0 +1,19 @@
+{
+  "skill_name": "universal-skill-creator",
+  "should_trigger": [
+    "Create an enterprise AI agent skill for postgres migration review",
+    "Build a commercial skill from these developer transcripts and notes",
+    "Can you write a skill adhering to the agentskills.io standard?",
+    "I need a skill creator to turn our customer support SOP into an AI skill",
+    "Make a skill from notes for our internal engineering onboarding",
+    "Turn this into a skill with companion Python validation scripts"
+  ],
+  "should_not_trigger": [
+    "Create a landing page, not a skill",
+    "Build a website, not a skill",
+    "I need a landing page, no skill involved",
+    "Please help me with one-off shell scripting to move files between folders",
+    "Write a quick Python script to check if this URL is reachable",
+    "Fix my CSS flexbox alignment on this modal dialog"
+  ]
+}

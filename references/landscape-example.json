@@ -1,0 +1,38 @@
+{
+  "note": "EXAMPLE ONLY - Replace every example value below with real research before running analyze_skill_market.py. Do not ship this file as research.",
+  "comparables": [
+    {
+      "name": "Example Skill A",
+      "source": "example.com/skill-a",
+      "audience": "Example audience",
+      "job": "Example job to be done",
+      "architecture": "Example architecture",
+      "workflow": "Example workflow",
+      "strengths": ["Example strength"],
+      "weaknesses": ["Example weakness"],
+      "evidence_quality": "Example evidence quality"
+    },
+    {
+      "name": "Example Skill B",
+      "source": "example.com/skill-b",
+      "audience": "Example audience",
+      "job": "Example job to be done",
+      "architecture": "Example architecture",
+      "workflow": "Example workflow",
+      "strengths": ["Example strength"],
+      "weaknesses": ["Example weakness"],
+      "evidence_quality": "Example evidence quality"
+    },
+    {
+      "name": "Example Skill C",
+      "source": "example.com/skill-c",
+      "audience": "Example audience",
+      "job": "Example job to be done",
+      "architecture": "Example architecture",
+      "workflow": "Example workflow",
+      "strengths": ["Example strength"],
+      "weaknesses": ["Example weakness"],
+      "evidence_quality": "Example evidence quality"
+    }
+  ]
+}
