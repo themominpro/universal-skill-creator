@@ -5,7 +5,7 @@
 [![Layout Conformance: 100/100 A+](https://img.shields.io/badge/Audit-100%2F100%20Grade%20A%2B-success.svg)](#-interactive-cli-toolkit)
 [![Security: Zero Critical Leaks](https://img.shields.io/badge/Security-Zero%20Critical%20Leaks-brightgreen.svg)](#-interactive-cli-toolkit)
 [![Python: 3.9+](https://img.shields.io/badge/Python-3.9%2B-blue.svg)](https://python.org)
-[![Evals: 10/10 Task Pass](https://img.shields.io/badge/Evals-10%2F10%20Passed-success.svg)](#-empirical-proof--built-example)
+[![Evals: 20/20 Task Pass](https://img.shields.io/badge/Evals-20%2F20%20Passed-success.svg)](#-empirical-proof--built-example)
 [![Platform: Windows | macOS | Linux](https://img.shields.io/badge/Platform-Windows%20%7C%20macOS%20%7C%20Linux-orange.svg)](#)
 
 > **The open-source meta-skill factory that synthesizes, audits, benchmarks, and packages enterprise AI Agent Skills.**
@@ -177,12 +177,12 @@ universal-skill-creator/
 ├── LICENSE                  # Apache 2.0 Open Source License
 ├── agents/                  # 5 Specialist Personas (Architect, Auditor, Script Smith, etc.)
 ├── assets/                  # Scaffolds (master_template.md, validator_template.py)
-├── references/              # 10 Flat Reference Textbooks (compaction, smells, MCP patterns)
-├── scripts/                 # 8 Deterministic Python CLI utilities
+├── references/              # 16 Flat Reference Guides (compaction, baseline grading, smells, MCP)
+├── scripts/                 # 16 Deterministic Python CLI utilities
 ├── tools/                   # Companion deployment & packaging tools
 │   ├── universal-skill-installer/  # Sandboxed multi-harness installer with AST security scan
 │   └── universal-skill-exporter/   # Non-mutating archive bundler with SHA256 integrity
-├── evals/                   # 10 Automated task evaluation cases & trigger datasets
+├── evals/                   # 20 Automated task evaluation cases & trigger datasets
 └── examples/                # Built reference skill & packaging gate test fixtures
 ```
 

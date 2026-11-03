@@ -15,7 +15,7 @@ metadata:
   version: "1.0.0"
   last_reviewed: "2026-11-04"
   tested_harnesses: "Linux static audit, security, trigger, and eval runs on 2026-11-04; live harness testing is still required before claiming cross-harness parity"
-  known_limitations: "Trigger test is a heuristic smoke test, not live LLM arbitration; task evals cover the shipped example skill only"
+  known_limitations: "Trigger test is a heuristic smoke test, not live LLM arbitration; deterministic gates in this package do not replace live with-skill vs baseline runs, which the workflow now requires before shipping"
 allowed-tools: Bash(python3:*) Bash(python:*) Read Write Edit Glob Grep
 ---
 
@@ -29,6 +29,7 @@ allowed-tools: Bash(python3:*) Bash(python:*) Read Write Edit Glob Grep
 - **Hard Invariant 2 (Script Smithing Mandate)**: Whenever a candidate skill performs validation, schema checks, or AST comparisons, you MUST author the companion executable utility in `scripts/validate.py` (0 context tokens for script code).
 - **Hard Invariant 3 (Compaction Survival)**: Invariants, package notices, and the Task Routing Table MUST reside within the top 1,000 tokens of `SKILL.md` to prevent compaction shearing (`references/compaction_resilience.md`).
 - **Hard Invariant 4 (Production Standard)**: Every skill must include domain-standard dialect, an Anti-Rationalization Table, and verifiable evaluation test cases.
+- **Hard Invariant 5 (Behaviour Gate, Not Just Structure)**: A skill that passes audit and security but does not beat the no-skill baseline, does not survive pressure, or does not route correctly in stub mode, does NOT ship. See `references/baseline_grading.md`, `references/pressure_scenarios.md`, `references/stub_router_mode.md`, and `references/render_qa.md`.
 
 ---
 
@@ -41,6 +42,10 @@ allowed-tools: Bash(python3:*) Bash(python:*) Read Write Edit Glob Grep
 | Skill requiring external APIs or MCP servers | Run Phase 1 Tool Discovery + MCP Wiring | `references/mcp_tool_patterns.md` |
 | Auditing or fixing an existing skill | Run Zero-Token 26-Smell Audit & Patch | `references/smell_taxonomy_26.md` |
 | Multi-turn interactive wizard creation | Apply OMSC Ambiguity Triage Protocol | `references/question_triage_omsc.md` |
+| Version-sensitive skill (CLI, API, moving guide) | Use Stub / Router Mode, 40-60 line pointer only | `references/stub_router_mode.md` |
+| Any skill, at every decision stage | Run QA Checkpoints, max 2 questions per checkpoint, record every checkpoint | `references/qa_checkpoints.md` |
+| Input in .docx or .pdf format | Extract text first, then run lexicon and ingestion on the extracted text | `scripts/extract_text.py` |
+| Proving a skill actually helps | Run Pressure + Baseline Grading + Render QA | `references/pressure_scenarios.md`, `references/baseline_grading.md`, `references/render_qa.md` |
 
 ---
 
@@ -53,7 +58,13 @@ Before drafting instructions, execute competitive reconnaissance using [agents/n
   - Identify their structural flaws (e.g., generic AI slop, Option Buffet, missing validation scripts).
   - Define the antidote that fixes the competitors' structural flaws.
 - [ ] **Step 0.2 (Domain Literature & Dialect Ingestion)**:
-  - Ingest relevant books, whitepapers, podcast transcripts, and enterprise SOPs.
+  - Ingest relevant books, whitepapers, podcast transcripts, and enterprise SOPs, in any of these formats: .txt, .md, .docx, .pdf, notes, and transcripts.
+  - For .docx and .pdf inputs, extract text first with the package extractor, then run the lexicon on the extracted text. Do not feed binary files to the lexicon script:
+  ```bash
+  python3 scripts/extract_text.py path/to/source.docx --output evals/source.txt
+  python3 scripts/extract_text.py path/to/source.pdf --output evals/source.txt
+  ```
+  - Scanned image-only PDFs have no text layer: the extractor warns and returns no text. Do not invent text for them; use OCR outside this package and record that step.
   - Follow `references/domain_knowledge_ingestion.md` to extract:
     1. Authoritative industry acronyms, metrics, and standard dialect (e.g. MEDDPICC, CAC payback, hook dwell-time).
     2. Candidate lexicon terms via `python3 scripts/build_domain_lexicon.py <sources> --output evals/lexicon.json`.
@@ -80,7 +91,18 @@ Copy and execute this discovery step before writing any documentation:
 
 - [ ] **Step 2.1 (Silent Context Read)**: Inspect active repository configuration files (`package.json`, `pyproject.toml`, `Cargo.toml`, `.env.example`, git history).
   - *Hard Rule*: Never ask the user a question about language, framework, or tooling that can be discovered by reading files in the workspace.
-- [ ] **Step 2.2 (The OMSC Ambiguity Filter)**:
+- [ ] **Step 2.2 (QA Checkpoints, Mandatory at Every Stage)**:
+  Follow `references/qa_checkpoints.md`. Phase 2 triage alone is not enough. At each checkpoint, present a 5-line decision summary, ask at most 2 questions with a (Recommended) default, and record it:
+  ```bash
+  python3 scripts/record_qa.py evals/qa-checkpoints.json --checkpoint teardown-domain --summary "niche, antidote, top footguns" --question "Is the niche boundary right? (Recommended: yes)" --confirmed
+  ```
+  - Checkpoint 1, after Phase 0: teardown-domain, niche, competitors, loopholes, strengths, antidote, top footguns.
+  - Checkpoint 2, after architecture, before drafting: architecture, 6-tier structure, routing table, script list, reference list, what it will NOT do.
+  - Checkpoint 3, after draft workflow, before gates: draft-workflow, steps in order, decision tables, anti-rationalization entries, example input/output.
+  - Checkpoint 4, after gates, before packaging: gates, audit grade, security, pressure excuses closed, baseline delta, render QA.
+  - Checkpoint 5, before ship, after trigger and bundle: ship, trigger results, bundle contents, gatekeeper status, stub/router status if applicable.
+  - High blast radius, commercial, or mutually exclusive architecture: wait for the user's reply at that checkpoint before proceeding. Low blast radius: presenting the summary and proceeding on the recommended default is allowed, but the summary and assumed answers must still be recorded. A checkpoint with no record did not happen.
+- [ ] **Step 2.3 (The OMSC Ambiguity Filter)**:
   - Check whether Objective, Metric, Scope, or Constraints contain blocking unknowns (`references/decision_matrices_and_escalation.md`).
   - *If Low Blast Radius / Standard Workflow*: Proceed immediately using domain defaults. Ask 0 questions.
   - *If High Blast Radius / Mutually Exclusive UX Branch*: Pause and ask at most **1 to 3 compact questions**:
@@ -139,6 +161,24 @@ Author the complete skill folder structure: `<skill-name>/` containing `SKILL.md
   python3 scripts/run_evals.py path/to/generated-skill
   ```
   - For revisions, adopt the [agents/comparator.md](agents/comparator.md) role to perform double-blind comparison against the baseline.
+- [ ] **Step 4.5 (Pressure Scenarios, Mandatory)**:
+  Generate combined pressure scenarios, then run each WITHOUT the skill and WITH the skill, recording verbatim excuses (`references/pressure_scenarios.md`):
+  ```bash
+  python3 scripts/generate_pressure_scenarios.py path/to/generated-skill evals/pressure-scenarios.json
+  ```
+  - The generated skill must contain a Thought | Reality table with at least the 3 most common baseline excuses. Identical baseline and with-skill runs mean the skill changed nothing: do not ship.
+- [ ] **Step 4.6 (With-Skill vs Baseline Grading, Mandatory)**:
+  Spawn with-skill and baseline runs in the same turn, grade with [agents/grader.md](agents/grader.md), then validate the grader contract and ship gate (`references/baseline_grading.md`):
+  ```bash
+  python3 scripts/grade_baseline.py --with evals/grading-with.json --baseline evals/grading-baseline.json
+  ```
+  - Ship only if with-skill pass_rate >= 80%, delta > 0, and no regression, unless a human waiver is recorded in feedback.json with a reason.
+- [ ] **Step 4.7 (Render QA, Mandatory for Outputs)**:
+  Run content and file gates on anything the skill produces, visual inspection by a human where output is visual (`references/render_qa.md`):
+  ```bash
+  python3 scripts/render_qa.py path/to/generated-skill
+  ```
+  - This script never claims a visual pass. A visual pass must be performed and recorded by a human.
 
 ---
 
@@ -149,10 +189,37 @@ Author the complete skill folder structure: `<skill-name>/` containing `SKILL.md
   ```bash
   python3 scripts/test_skill_trigger.py path/to/generated-skill
   ```
+- [ ] **Step 5.2 (Description Optimisation, Train/Test Split)**:
+  Split trigger queries 60% train / 40% test, run the trigger test on each split separately, and choose the best description by TEST score, not train score. Near-miss negatives only; a bad negative is "Write a fibonacci function" for a PDF skill, a good negative is a long messy request for a neighbouring task:
+  ```bash
+  python3 scripts/eval_description_split.py path/to/generated-skill/evals/trigger_queries.json /tmp/desc-split
+  ```
+- [ ] **Step 5.3 (Gatekeeper, When the Harness Supports It)**:
+  Install the session-start hook so the generated skill is actually invoked (`references/gatekeeper_bootstrap.md`). Verify it prints only router text:
+  ```bash
+  python3 scripts/gatekeeper_hook.py
+  ```
+  - Without a hook, the skill is documentation, not workflow. Say so in the delivery note if no hook is available.
 
 ---
 
-## 9. Anti-Rationalization Guardrails, Footguns & Excuses to Reject
+## 9. Phase 6: Stub / Router Mode (Only for Version-Sensitive Skills)
+
+Use this mode only when a runtime router exists behind the stub. See `references/stub_router_mode.md` and the shipped example in `examples/stub-example/` (50-line stub, plus guide.md):
+
+- [ ] **Step 6.1 (Build the Stub, Not the Guide)**:
+  Installed SKILL.md must be 40-60 lines: one purpose line, one mandatory `skills get core` load command in a Start Here section stating "this file is a discovery stub, not the usage guide", a routing list as commands only, and at most 6 why-bullets.
+  - No version number, no flag list, no command reference, no output format in the stub. Any of those is a drift bug.
+- [ ] **Step 6.2 (Router Evals, Inject Only the Stub)**:
+  - Note: a stub is intentionally NOT a full skill, so it is exempt from the full audit_skill.py gate. Its gate is router_eval.py, not audit. Do not "fix" a stub by adding a routing table, guardrails section, or scripts folder; that defeats the stub pattern.
+  Test loading, selection, command usage, reference routing, and context footprint, with cases as id, prompt, category, expectedPatterns, forbiddenPatterns:
+  ```bash
+  python3 scripts/router_eval.py examples/stub-example/SKILL.md evals/router-cases.json examples/stub-example/guide.md
+  ```
+  - Record stub, guide, and full sizes in bytes and approximate tokens. Full size must not exceed 3x guide size without a written reason.
+  - Do NOT use an over-broad stub description for a general skill with no router behind it. That causes false triggering, which the trigger-negation guard exists to prevent.
+
+## 10. Anti-Rationalization Guardrails, Footguns & Excuses to Reject
 
 Refutes common LLM rationalizations, cutting corners, and known failure patterns (`references/playbook_anti_patterns_38.md`):
 
@@ -166,15 +233,17 @@ Refutes common LLM rationalizations, cutting corners, and known failure patterns
 
 ---
 
-## 10. Final Changes and Limits
+## 11. Final Changes and Limits
 
-- No dossier, no WORKFLOW file, no dead templates, no duplicate packager, and no author fields. What remains is SKILL.md, agent roles, references, scripts, templates that are actually linked, and one built example.
+- No dossier, no WORKFLOW file, no dead templates, no duplicate packager, and no author fields. What remains is SKILL.md, agent roles, references, scripts, templates that are actually linked, and two shipped examples: one built skill and one stub skill.
 - Trigger, audit, security, bundle, and MCP detection gaps found in the final review are closed in this package. See CHANGELOG.md for the exact list.
-- Known limit, unchanged: trigger evaluation is a heuristic smoke test, not live LLM arbitration. Do not claim live model precision from it.
+- God-tier behaviour gates added in this package: gatekeeper bootstrap, pressure scenarios, with-skill vs baseline grading with a numeric ship gate, description train/test split, stub/router mode with router evals, and render QA. See CHANGELOG.md.
+- QA and format fixes added in this package, version still 1.0.0: per-stage QA checkpoints at teardown, architecture, draft, gates, and ship, recorded with scripts/record_qa.py; a .docx/.pdf text extractor in scripts/extract_text.py; and the last dossier wording removed from the competitor protocol and niche researcher agent.
+- Known limit, unchanged: trigger evaluation is a heuristic smoke test, not live LLM arbitration. Do not claim live model precision from it. The deterministic gates in this package do not replace the live with-skill vs baseline runs that Phase 4.6 now requires before shipping.
 
-## 11. What This Skill Does NOT Do
+## 12. What This Skill Does NOT Do
 
 - Does NOT generate bloated 2,000-line documentation dumps into a single `SKILL.md`.
 - Does NOT execute destructive migrations or deployments directly without a Plan-Validate-Execute safety gate.
 - Does NOT hallucinate uninstalled MCP tools or fictitious CLI commands.
-- Does NOT deliver raw prompts without companion validation code and client proof dossiers.
+- Does NOT deliver raw prompts without companion validation code.

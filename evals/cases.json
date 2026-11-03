@@ -103,5 +103,105 @@
     "required_output_substrings": [
       "\"mcp\""
     ]
+  },
+  {
+    "id": "case-11-gatekeeper",
+    "name": "Gatekeeper Hook",
+    "description": "Gatekeeper hook prints router text and exits 0",
+    "command": "python scripts/gatekeeper_hook.py",
+    "expected_exit_code": 0,
+    "required_output_substrings": [
+      "1% chance"
+    ]
+  },
+  {
+    "id": "case-12-pressure",
+    "name": "Pressure Scenario Generation",
+    "description": "Pressure generator produces 4 combined scenarios",
+    "command": "python scripts/generate_pressure_scenarios.py examples/built-example/prospect-homepage-audit /tmp/pressure-eval.json",
+    "expected_exit_code": 0,
+    "required_output_substrings": [
+      "\"scenario_count\": 4"
+    ]
+  },
+  {
+    "id": "case-13-baseline-pass",
+    "name": "Baseline Grading Pass",
+    "description": "With-skill 80 beats baseline 40 with no regression",
+    "command": "python scripts/grade_baseline.py --with evals/grading-with.json --baseline evals/grading-baseline.json",
+    "expected_exit_code": 0,
+    "required_output_substrings": [
+      "\"status\": \"PASS\""
+    ]
+  },
+  {
+    "id": "case-14-baseline-fail",
+    "name": "Baseline Grading Contract Fail",
+    "description": "Broken grading file fails the contract check",
+    "command": "python scripts/grade_baseline.py evals/grading-bad.json",
+    "expected_exit_code": 1,
+    "required_output_substrings": [
+      "\"status\": \"FAIL\""
+    ]
+  },
+  {
+    "id": "case-15-desc-split",
+    "name": "Description Train Test Split",
+    "description": "Split has train 6 test 4 with both classes in test",
+    "command": "python scripts/eval_description_split.py evals/description-queries.json /tmp/desc-split-eval",
+    "expected_exit_code": 0,
+    "required_output_substrings": [
+      "\"test_count\": 4"
+    ]
+  },
+  {
+    "id": "case-16-router",
+    "name": "Router Eval Stub",
+    "description": "50-line stub passes router eval",
+    "command": "python scripts/router_eval.py examples/stub-example/SKILL.md evals/router-cases.json examples/stub-example/guide.md",
+    "expected_exit_code": 0,
+    "required_output_substrings": [
+      "\"stub_lines\": 50"
+    ]
+  },
+  {
+    "id": "case-17-render",
+    "name": "Render QA Stub Example",
+    "description": "Render QA passes content and file gates on stub example",
+    "command": "python scripts/render_qa.py examples/stub-example",
+    "expected_exit_code": 0,
+    "required_output_substrings": [
+      "\"status\": \"PASS\""
+    ]
+  },
+  {
+    "id": "case-18-qa-record",
+    "name": "QA Checkpoint Record",
+    "description": "QA recorder accepts 1 question and confirmed checkpoint",
+    "command": "python scripts/record_qa.py /tmp/qa-eval.json --checkpoint architecture --summary \"6-tier structure, routing table\" --question \"Is routing complete? (Recommended: yes)\" --confirmed",
+    "expected_exit_code": 0,
+    "required_output_substrings": [
+      "\"status\": \"PASS\""
+    ]
+  },
+  {
+    "id": "case-19-qa-limit",
+    "name": "QA Checkpoint Limit",
+    "description": "QA recorder rejects 3 questions at one checkpoint",
+    "command": "python scripts/record_qa.py /tmp/qa-eval.json --checkpoint architecture --summary \"x\" --question \"q1\" --question \"q2\" --question \"q3\" --confirmed",
+    "expected_exit_code": 1,
+    "required_output_substrings": [
+      "\"status\": \"FAIL\""
+    ]
+  },
+  {
+    "id": "case-20-extract",
+    "name": "Extractor Docx",
+    "description": "Extractor reads a real .docx fixture and returns its text",
+    "command": "python scripts/extract_text.py evals/sample.docx",
+    "expected_exit_code": 0,
+    "required_output_substrings": [
+      "Hello SOP world"
+    ]
   }
 ]
