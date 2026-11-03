@@ -16,7 +16,7 @@ Turn raw practitioner notes, books, transcripts, SOPs, or competitor teardowns i
 
 ## 🎯 The Problem: Why 95% of AI Skills Fail in Production
 
-Modern frontier LLMs and reasoning models (Claude 4.x / Claude 3.7 Sonnet, OpenAI o-series / GPT-5, Gemini 2.5+ Pro) are incredible, but unstructured prompt-only skills fail in production due to 4 core architectural flaws:
+Modern frontier LLMs and reasoning architectures (Claude 5x series, GPT-5 / o-series, Gemini 3.8 Flash / Argon) are incredible, but unstructured prompt-only skills fail in production due to 4 core architectural flaws:
 
 1. **Context Compaction Shearing**: Monolithic prompt files (>500 lines) suffer attention degradation. When conversational context triggers auto-compaction, instructions placed deep in prompts are permanently sheared off.
 2. **Missing Utility Scripts (MUS - #1 Failure Mode)**: Models hallucinate when attempting syntax checking, regex parsing, math, or AST diffs inside token memory.
