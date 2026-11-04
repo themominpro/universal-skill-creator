@@ -96,5 +96,4 @@ universal-skill-creator/
 ├── SKILL.md            # The Execution OS (see CHANGELOG.md for line count and test results)
 ├── README.md           # This file, the only human entry point
 ├── CHANGELOG.md        # Version history
-└── skill.yaml          # AgentSkills discovery metadata manifest
 ```
