@@ -9,7 +9,6 @@ description: >-
   Trigger on: "create skill", "build a skill", "write skill", "skill creator",
   "make a skill from notes", "turn this into a skill", "audit skill", "audit an existing skill", "audit existing skill", "build commercial skill".
   Do NOT use for one-off shell scripting or general codebase refactoring without skills.
-license: Apache-2.0
 compatibility: Requires Python 3.9+ and standard shell environment (Windows, macOS, Linux)
 metadata:
   version: "1.0.0"
@@ -30,6 +29,7 @@ allowed-tools: Bash(python3:*) Bash(python:*) Read Write Edit Glob Grep
 - **Hard Invariant 3 (Compaction Survival)**: Invariants, package notices, and the Task Routing Table MUST reside within the top 1,000 tokens of `SKILL.md` to prevent compaction shearing (`references/compaction_resilience.md`).
 - **Hard Invariant 4 (Production Standard)**: Every skill must include domain-standard dialect, an Anti-Rationalization Table, and verifiable evaluation test cases.
 - **Hard Invariant 5 (Behaviour Gate, Not Just Structure)**: A skill that passes audit and security but does not beat the no-skill baseline, does not survive pressure, or does not route correctly in stub mode, does NOT ship. See `references/baseline_grading.md`, `references/pressure_scenarios.md`, `references/stub_router_mode.md`, and `references/render_qa.md`.
+- **Hard Invariant 6 (Example Structure Only)**: Shipped examples show structure only, trigger, workflow, decision table, validate script, evals. Do NOT copy an example's domain rules into a new skill. Build every new skill from the user's SOP, transcript, and domain research.
 
 ---
 
@@ -44,7 +44,7 @@ allowed-tools: Bash(python3:*) Bash(python:*) Read Write Edit Glob Grep
 | Multi-turn interactive wizard creation | Apply OMSC Ambiguity Triage Protocol | `references/question_triage_omsc.md` |
 | Version-sensitive skill (CLI, API, moving guide) | Use Stub / Router Mode, 40-60 line pointer only | `references/stub_router_mode.md` |
 | Any skill, at every decision stage | Run QA Checkpoints, max 2 questions per checkpoint, record every checkpoint | `references/qa_checkpoints.md` |
-| Input in .docx or .pdf format | Extract text first, then run lexicon and ingestion on the extracted text | `scripts/extract_text.py` |
+| Input in .docx, .pdf, .ppt, or similar format | Use harness-native reading first (Claude Code / Claude); extractor is an optional fallback, only required before the text-only lexicon script | `scripts/extract_text.py` |
 | Proving a skill actually helps | Run Pressure + Baseline Grading + Render QA | `references/pressure_scenarios.md`, `references/baseline_grading.md`, `references/render_qa.md` |
 
 ---
@@ -59,12 +59,13 @@ Before drafting instructions, execute competitive reconnaissance using [agents/n
   - Define the antidote that fixes the competitors' structural flaws.
 - [ ] **Step 0.2 (Domain Literature & Dialect Ingestion)**:
   - Ingest relevant books, whitepapers, podcast transcripts, and enterprise SOPs, in any of these formats: .txt, .md, .docx, .pdf, notes, and transcripts.
-  - For .docx and .pdf inputs, extract text first with the package extractor, then run the lexicon on the extracted text. Do not feed binary files to the lexicon script:
+  - Format rule, harness-first, NOT a hard rule: Claude Code and Claude read .md, .pdf, .docx, .ppt, and similar formats natively, so use the harness's own reading first. Do not force extraction when the harness already read the file.
+  - The package extractor in scripts/extract_text.py is an optional fallback only, for harnesses or scripts that need plain text. Its one hard use is the lexicon script, which only reads text, so if you run the lexicon on a .docx or .pdf, extract to .txt first:
   ```bash
   python3 scripts/extract_text.py path/to/source.docx --output evals/source.txt
   python3 scripts/extract_text.py path/to/source.pdf --output evals/source.txt
   ```
-  - Scanned image-only PDFs have no text layer: the extractor warns and returns no text. Do not invent text for them; use OCR outside this package and record that step.
+  - Scanned image-only PDFs have no text layer: the extractor warns and returns no text. Do not invent text for them; use OCR outside this package and record that step, or let Claude read the file natively if it can.
   - Follow `references/domain_knowledge_ingestion.md` to extract:
     1. Authoritative industry acronyms, metrics, and standard dialect (e.g. MEDDPICC, CAC payback, hook dwell-time).
     2. Candidate lexicon terms via `python3 scripts/build_domain_lexicon.py <sources> --output evals/lexicon.json`.
@@ -238,7 +239,7 @@ Refutes common LLM rationalizations, cutting corners, and known failure patterns
 - No dossier, no WORKFLOW file, no dead templates, no duplicate packager, and no author fields. What remains is SKILL.md, agent roles, references, scripts, templates that are actually linked, and two shipped examples: one built skill and one stub skill.
 - Trigger, audit, security, bundle, and MCP detection gaps found in the final review are closed in this package. See CHANGELOG.md for the exact list.
 - God-tier behaviour gates added in this package: gatekeeper bootstrap, pressure scenarios, with-skill vs baseline grading with a numeric ship gate, description train/test split, stub/router mode with router evals, and render QA. See CHANGELOG.md.
-- QA and format fixes added in this package, version still 1.0.0: per-stage QA checkpoints at teardown, architecture, draft, gates, and ship, recorded with scripts/record_qa.py; a .docx/.pdf text extractor in scripts/extract_text.py; and the last dossier wording removed from the competitor protocol and niche researcher agent.
+- QA and format fixes added in this package, version still 1.0.0: per-stage QA checkpoints at teardown, architecture, draft, gates, and ship, recorded with scripts/record_qa.py; a .docx/.pdf text extractor in scripts/extract_text.py as an optional fallback, not a hard rule, because Claude Code and Claude read .md, .pdf, .docx, .ppt, and similar formats natively; and the last dossier wording removed from the competitor protocol and niche researcher agent.
 - Known limit, unchanged: trigger evaluation is a heuristic smoke test, not live LLM arbitration. Do not claim live model precision from it. The deterministic gates in this package do not replace the live with-skill vs baseline runs that Phase 4.6 now requires before shipping.
 
 ## 12. What This Skill Does NOT Do

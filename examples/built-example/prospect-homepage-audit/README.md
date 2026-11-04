@@ -2,6 +2,8 @@
 
 Audits a prospect homepage in the browser and records a verified Pitch or Skip verdict with plain-word evidence.
 
+**Example structure only:** this example shows structure, trigger, workflow, decision table, validate script, evals. Do NOT copy its domain rules into a new skill. Build every new skill from the user's SOP, transcript, and domain research.
+
 ---
 
 ## 📦 What's Included

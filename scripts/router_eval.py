@@ -1,7 +1,4 @@
 #!/usr/bin/env python3
-# Copyright (c) 2026 Momin / GTM Engineering. All rights reserved.
-# Licensed under the Apache License, Version 2.0.
-
 """Deterministic router checks for a stub skill.
 
 Usage: python3 scripts/router_eval.py <stub_SKILL.md> <cases.json> [<guide.md>]

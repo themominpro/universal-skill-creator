@@ -1,7 +1,4 @@
 #!/usr/bin/env python3
-# Copyright (c) 2026 Momin / GTM Engineering. All rights reserved.
-# Licensed under the Apache License, Version 2.0.
-
 """Record one QA checkpoint, deterministically.
 
 Usage: python3 scripts/record_qa.py <output_json> --checkpoint <name> --summary <text> [--question <text> ...] [--confirmed|--assumed]

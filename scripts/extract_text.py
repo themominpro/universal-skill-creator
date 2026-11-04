@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
-# Copyright (c) 2026 Momin / GTM Engineering. All rights reserved.
-# Licensed under the Apache License, Version 2.0.
-
 """Extract plain text from .txt, .md, .docx, and simple .pdf files.
+
+Optional fallback only, NOT a hard rule: Claude Code and Claude read
+.md, .pdf, .docx, .ppt, and similar formats natively, so use harness
+reading first. Use this script only when a harness or script needs
+plain text, for example before build_domain_lexicon.py.
 
 Usage: python3 scripts/extract_text.py <input> [--output <file>]
 No external dependencies, so it works in a plain Python environment.

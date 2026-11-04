@@ -1,7 +1,4 @@
 #!/usr/bin/env python3
-# Copyright (c) 2026 Momin / GTM Engineering. All rights reserved.
-# Licensed under the Apache License, Version 2.0.
-
 """Generate combined pressure scenarios for a generated skill.
 
 Usage: python3 scripts/generate_pressure_scenarios.py <skill_path> <output_json>

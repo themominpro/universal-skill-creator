@@ -1,7 +1,4 @@
 #!/usr/bin/env python3
-# Copyright (c) 2026 Momin / GTM Engineering. All rights reserved.
-# Licensed under the Apache License, Version 2.0.
-
 """Print only the gatekeeper router text. No writes, no network, no secrets.
 
 Exit 0 when the router text is printed. If this prints nothing, the hook

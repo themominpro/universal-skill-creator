@@ -1,7 +1,4 @@
 #!/usr/bin/env python3
-# Copyright (c) 2026 Momin / GTM Engineering. All rights reserved.
-# Licensed under the Apache License, Version 2.0.
-
 """
 Zero-Token Structural Skill Linter & Layout Conformance Auditor.
 Performs deep structural, syntactic, and AST verification against:

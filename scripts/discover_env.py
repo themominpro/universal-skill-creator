@@ -1,7 +1,4 @@
 #!/usr/bin/env python3
-# Copyright (c) 2026 Momin / GTM Engineering. All rights reserved.
-# Licensed under the Apache License, Version 2.0.
-
 """
 Environment and Tool Discovery Utility
 Scans the local host environment for OS details, shell environment, installed

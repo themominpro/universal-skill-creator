@@ -1,7 +1,4 @@
 #!/usr/bin/env python3
-# Copyright (c) 2026 Momin / GTM Engineering. All rights reserved.
-# Licensed under the Apache License, Version 2.0.
-
 """Render QA gates 1 and 2, deterministically.
 
 Usage: python3 scripts/render_qa.py <path>

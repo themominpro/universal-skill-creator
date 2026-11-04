@@ -62,9 +62,11 @@ flowchart TD
 ## 3. Extraction Passes & Candidate Lexicon Generation
 
 To rapidly harvest vocabulary from transcripts and text archives:
-1. Run the domain lexicon extractor:
+1. Read the source in the harness first. Claude Code and Claude read .md, .pdf, .docx, .ppt, and similar formats natively, so extraction is NOT a hard rule.
+2. Only if you need plain text for a script, extract first, then run the lexicon on the extracted text:
    ```bash
-   python scripts/build_domain_lexicon.py path/to/transcript.txt --output evals/lexicon.json
+   python scripts/extract_text.py path/to/source.docx --output evals/source.txt
+   python scripts/build_domain_lexicon.py evals/source.txt --output evals/lexicon.json
    ```
 2. Review extracted high-frequency terms. Separate buyer/practitioner phrases from generic programming words.
 3. Every important term needs: plain meaning, condition of use, and common misconception.

@@ -37,7 +37,7 @@ Derived from the empirical **LLM Agent Skills Playbook (2026)**, this reference 
 
 | # | Anti-pattern | Symptom in Production | Root Cause | Architectural Remedy |
 |---|---|---|---|---|
-| **23** | **CoT Scaffolding on Reasoning Models** | Token inflation, slower latency, degraded output quality. | Prompting reasoning models (OpenAI o-series / GPT-5, Gemini 3.8 Flash / Argon, Claude 5x) with "think step by step". | Focus prompts strictly on outcomes, constraints, and verifiable deliverables. |
+| **23** | **CoT Scaffolding on Reasoning Models** | Token inflation, slower latency, degraded output quality. | Prompting reasoning models (o3, Gemini 2.0 Flash Thinking, Claude 3.7) with "think step by step". | Focus prompts strictly on outcomes, constraints, and verifiable deliverables. |
 | **24** | **Blanket Tool Mandates** | Tool over-triggering, runaway thinking loops. | Prompting with generic directives like "if in doubt, call tool X". | Use targeted, scenario-based Task Routing Tables. |
 | **25** | **Contradictory System Prompts** | Wasted reasoning tokens, flaky execution. | Accretion of competing rules across system prompts and skills. | Resolve hierarchy; declare each invariant exactly once. |
 | **26** | **Repetitive "Ask First" Restrictions** | Annoying approval loops for trivial, non-destructive actions. | Excessive defensive phrasing in prompt files. | Adopt the OMSC Ambiguity Filter: ask 0 questions for low-blast-radius standard tasks. |

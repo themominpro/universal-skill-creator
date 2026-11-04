@@ -1,7 +1,4 @@
 #!/usr/bin/env python3
-# Copyright (c) 2026 Momin / GTM Engineering. All rights reserved.
-# Licensed under the Apache License, Version 2.0.
-
 """Split trigger queries into train/test sets, deterministically.
 
 Usage: python3 scripts/eval_description_split.py <queries.json> <output_dir> [--train-ratio 0.6]

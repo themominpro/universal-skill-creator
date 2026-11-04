@@ -1,7 +1,4 @@
 #!/usr/bin/env python3
-# Copyright (c) 2026 Momin / GTM Engineering. All rights reserved.
-# Licensed under the Apache License, Version 2.0.
-
 """Extract candidate domain terms from supplied text files.
 
 This produces candidates only; it does not assert that a term is correct.

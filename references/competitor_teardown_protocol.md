@@ -53,7 +53,7 @@ Run the competitor skill on 2–3 boundary conditions or messy inputs (not just 
 Write the explicit antidote into your skill:
 - Add the failure modes directly to your **Domain Footguns**.
 - Add the required checks to your **Verification Gates**.
-- Emphasize these advantages in your **Client Pitch Dossier**.
+- Emphasize these advantages in your verification gates and domain footguns, not in a separate marketing file.
 
 ---
 

@@ -50,7 +50,7 @@ Define the economic justification for the skill:
 
 ## Output Contract
 
-Return a structured **Market Intelligence Dossier**:
+Return a structured **Market Intelligence Report**:
 1. **Competitor Teardown Matrix**: Top 2–3 competing skills, their structural smells, and our architectural antidotes.
 2. **Domain Glossary & Frameworks**: Key mental models, acronyms, and operational formulas.
 3. **Top 5 Domain Footguns**: Non-obvious failure modes discovered from expert literature.
