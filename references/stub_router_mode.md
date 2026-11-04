@@ -66,4 +66,4 @@ and full size. The full size must not exceed 3x the guide size
 without a written reason. State loading costs in the guide itself,
 for example "snapshots cost about 200-400 tokens, full loading
 costs several times more, load it only on need." A skill that
-hides its cost is not god tier.
+hides its cost is not apex-tier.

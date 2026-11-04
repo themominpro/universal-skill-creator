@@ -49,7 +49,7 @@ Ship only if ALL of these hold:
 - grading.json passes scripts/grade_baseline.py with 0 contract
   violations
 
-If any condition fails, the skill is not god tier, however clean
+If any condition fails, the skill is not apex-tier, however clean
 its audit score is. Record the benchmark in the generated skill's
 evals/ folder, not only in chat.
 

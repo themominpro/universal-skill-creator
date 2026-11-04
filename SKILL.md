@@ -238,7 +238,7 @@ Refutes common LLM rationalizations, cutting corners, and known failure patterns
 
 - No dossier, no WORKFLOW file, no dead templates, no duplicate packager, and no author fields. What remains is SKILL.md, agent roles, references, scripts, templates that are actually linked, and two shipped examples: one built skill and one stub skill.
 - Trigger, audit, security, bundle, and MCP detection gaps found in the final review are closed in this package. See CHANGELOG.md for the exact list.
-- God-tier behaviour gates added in this package: gatekeeper bootstrap, pressure scenarios, with-skill vs baseline grading with a numeric ship gate, description train/test split, stub/router mode with router evals, and render QA. See CHANGELOG.md.
+- Apex-Tier behaviour gates added in this package: gatekeeper bootstrap, pressure scenarios, with-skill vs baseline grading with a numeric ship gate, description train/test split, stub/router mode with router evals, and render QA. See CHANGELOG.md.
 - QA and format fixes added in this package, version still 1.0.0: per-stage QA checkpoints at teardown, architecture, draft, gates, and ship, recorded with scripts/record_qa.py; a .docx/.pdf text extractor in scripts/extract_text.py as an optional fallback, not a hard rule, because Claude Code and Claude read .md, .pdf, .docx, .ppt, and similar formats natively; and the last dossier wording removed from the competitor protocol and niche researcher agent.
 - Known limit, unchanged: trigger evaluation is a heuristic smoke test, not live LLM arbitration. Do not claim live model precision from it. The deterministic gates in this package do not replace the live with-skill vs baseline runs that Phase 4.6 now requires before shipping.
 

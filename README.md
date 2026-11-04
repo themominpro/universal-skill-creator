@@ -7,7 +7,7 @@
 [![Python: 3.9+](https://img.shields.io/badge/Python-3.9%2B-blue.svg)](https://python.org)
 [![Evals: 20/20 Task Pass](https://img.shields.io/badge/Evals-20%2F20%20Passed-success.svg)](#)
 
-> v1.0, god-tier behaviour gates: gatekeeper bootstrap, pressure scenarios, with-skill vs baseline grading with a numeric ship gate, description train/test split, stub/router mode with router evals, and render QA. Adheres to open `agentskills.io` standard.
+> v1.0, apex-tier behaviour gates: gatekeeper bootstrap, pressure scenarios, with-skill vs baseline grading with a numeric ship gate, description train/test split, stub/router mode with router evals, and render QA. Adheres to open `agentskills.io` standard.
 
 > Turns practitioner notes, books, transcripts, and competitor teardowns into AI Agent Skills adhering to the open `agentskills.io` standard. No pitch dossier, no marketing files, only the files an agent actually loads or runs.
 
@@ -71,7 +71,7 @@ When invoked, the engine automatically runs 5 distinct phases:
 - **Inputs**: .txt, .md, notes, SOPs, transcripts, plus .docx, .pdf, .ppt, and similar formats read natively by Claude Code / Claude, no hard extraction rule. `scripts/extract_text.py` is an optional fallback only, for scripts that need plain text. Scanned image-only PDFs warn and return no text, they are not invented.
 - **Dossier wording removed**: the competitor protocol no longer tells the agent to create a pitch dossier, and the niche researcher now returns a Market Intelligence Report.
 
-## God-Tier Behaviour Gates (new in this v1.0 package)
+## Apex-Tier Behaviour Gates (new in this v1.0 package)
 
 1. **Gatekeeper**: `scripts/gatekeeper_hook.py` prints only the 1% router rule. A skill that never triggers is documentation, not workflow.
 2. **Pressure**: `scripts/generate_pressure_scenarios.py` makes 4 combined scenarios (time, sunk cost, authority, exhaustion). Run baseline and with-skill, record verbatim excuses, build a Thought | Reality table.

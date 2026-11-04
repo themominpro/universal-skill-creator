@@ -23,7 +23,7 @@
   - Bundle gate verified: packaging the passing example succeeds, packaging the gate-test bad skill fails with no archive created
   - File count in zip: 37 files, including the new landscape example, negation queries, and gate-test fixture
 
-## v1.0 - God-Tier Behaviour Gates - 2026-11-04
+## v1.0 - Apex-Tier Behaviour Gates - 2026-11-04
 
 - Version stays 1.0.0, no version bump, no author fields. This is the same v1.0 package with the 6 Top 7 gaps closed.
 - Gatekeeper: references/gatekeeper_bootstrap.md + scripts/gatekeeper_hook.py, 1% rule, priority user > skills > default, subagent exemption, compaction failure mode.
